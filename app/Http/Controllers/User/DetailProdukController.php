@@ -10,15 +10,13 @@ class DetailProdukController extends Controller
 {
     public function show($id)
     {
-        // Ambil data produk berdasarkan ID
-        $produk = ModelProduk::find($id);
-
-        // Jika produk tidak ditemukan, tampilkan error 404
+        $produk = ModelProduk::with('toko')->find($id);
+    
         if (!$produk) {
             abort(404, 'Produk tidak ditemukan');
         }
-
-        // Kembalikan view dengan data produk
+    
         return view('user.detailProduk.detailProduk', compact('produk'));
     }
+    
 }

@@ -20,16 +20,14 @@
                     <label for="category" class="form-label">Kategori Produk <span>*</span></label>
                     <select name="category" id="category" class="form-select" required>
                         <option value="">Pilih Kategori</option>
-                        <option value="1">Sayuran Segar</option>
-                        <option value="2">Buah-Buahan</option>
-                        <option value="3">Biji-Bijian</option>
-                        <option value="4">Pupuk dan Nutrisi Tanaman</option>
-                        <option value="5">Alat Pertanian</option>
+                        <option value="1">makanan dan minuman</option>
+                        <option value="2">pakaian</option>
+                        <option value="3">aksesoris</option>
+                        <option value="4">elektronik</option>
+                        <option value="5">peralatan mandi</option>
                         <option value="6">Produk Olahan Pertanian</option>
                         <option value="7">Tanaman Hias</option>
-                        <option value="8">Benih Tanaman</option>
-                        <option value="9">Produk Peternakan</option>
-                        <option value="10">Peralatan Kebun</option>
+                        <option value="8">produk kebersihan</option>
                     </select>
                 </div>
                 <div class="mb-4">
@@ -47,6 +45,20 @@
                     <textarea class="form-control" name="product_desc" id="product_desc" rows="3"
                         placeholder="Masukkan deskripsi produk" required></textarea>
                 </div>
+                
+                <div class="mb-4">
+                    <label for="location" class="form-label">Lokasi Produk <span>*</span></label>
+                    <input type="text" class="form-control" name="location" id="location" placeholder="Lokasi Produk" required readonly />
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label">Tandai Lokasi Produk di Peta <span>*</span></label>
+                    <div id="map" style="height: 300px; border-radius: 10px;"></div>
+                </div>
+            
+            </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <button type="button" onclick="history.back()" class="btn btn-secondary">
@@ -56,6 +68,62 @@
             </form>
         </div>
     </section>
+<!-- Load Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc"></script>
+
+<script>
+let map;
+let marker;
+
+function initMap() {
+    const defaultLocation = { lat: -0.0672, lng: 100.6425 }; // Titik default Harau
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: defaultLocation,
+        zoom: 14
+    });
+
+    marker = new google.maps.Marker({
+        position: defaultLocation,
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+
+    // Update form value saat marker dipindahkan
+    marker.addListener('dragend', function(event) {
+        updatePosition(event.latLng.lat(), event.latLng.lng());
+    });
+
+    // Dapatkan lokasi real dari device
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userPos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            marker.setPosition(userPos);
+            map.setCenter(userPos);
+            updatePosition(userPos.lat, userPos.lng);
+        }, function() {
+            console.log('Gagal mengambil lokasi GPS.');
+        });
+    } else {
+        console.log('Browser tidak support Geolocation.');
+    }
+}
+
+function updatePosition(lat, lng) {
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
+    document.getElementById('location').value = `Lat: ${lat}, Lng: ${lng}`;
+}
+
+// Panggil saat window load
+window.onload = initMap;
+</script>
+
+
     <script>
         function validateFileSize(input) {
             const file = input.files[0];

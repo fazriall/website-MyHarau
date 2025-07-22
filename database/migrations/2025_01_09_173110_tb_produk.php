@@ -13,7 +13,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user')->nullable(); // Mengubah id_seller menjadi id_user
             $table->string('product_name');
             $table->string('category');
-            $table->decimal('product_price', 10, 2);
+            $table->bigInteger('product_price');
+
             $table->text('product_desc');
             $table->string('product_img');
             $table->integer('product_stock');

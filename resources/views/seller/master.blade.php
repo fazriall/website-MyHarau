@@ -38,7 +38,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ url('dashboard') }}" class="logo d-flex align-items-center">
                 <img src="{{ asset('assets/img/logo.png') }}" alt="" />
-                <span class="d-none d-lg-block">MyTani</span>
+                <span class="d-none d-lg-block">MyHarau</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
@@ -62,21 +62,25 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ Auth::user()->name }}</h6> <!-- Mengambil nama pengguna dari database -->
+                            <h6>{{ Auth::user()->name }}</h6>
                             <span>{{ Auth::user()->role_id == 1 ? 'Seller' : 'User' }}</span>
-                            <!-- Menampilkan role berdasarkan role_id -->
                         </li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
 
-                        {{-- <li>
+                     <li>
                             <a class="dropdown-item d-flex align-items-center" href="{{ url('home') }}">
                                 <i class="bi bi-shop"></i> <!-- Ikon untuk marketplace -->
                                 <span>Marketplace</span> <!-- Menambahkan item Marketplace -->
                             </a>
-                        </li> --}}
-
+                        </li> 
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('edit.toko') }}">
+                                <i class="bi bi-shop"></i>
+                                <span>Edit Toko</span>
+                            </a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>

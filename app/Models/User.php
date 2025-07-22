@@ -25,6 +25,8 @@ class User extends Authenticatable
         'about',         // Menambahkan kolom about jika diperlukan
         'profile_picture', // Menambahkan kolom profile_picture jika diperlukan
         'role_id',
+        'latitude',
+        'longitude',
     ];
 
     /**
@@ -45,5 +47,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'latitude' => 'float',
+        'longitude' => 'float',
     ];
+    // app/Models/User.php
+
+public function isAdmin()
+{
+    return $this->role_id === 3;
+}
+
 }

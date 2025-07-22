@@ -1,0 +1,30 @@
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.user-actions svg {
+    fill: white;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+header {
+    background-color: #4CAF50;
+    padding: 1rem 0;
+}
+
+.dropdown-menu {
+    z-index: 10000;
+}
